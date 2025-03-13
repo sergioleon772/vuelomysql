@@ -1,0 +1,12 @@
+{% extends "admin.html" %}
+
+{% block title %}Itinerario{% endblock %}
+
+{% block content%}
+    <h1 style="text-align: center;">Menu Itinerario</h1>
+    <div>
+        <a href="{{url_for('privado.ingresar_itinerario')}}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true" >Ingresar Itinerario</a>
+        <a href="{{url_for('privado.actualizar_itinerario')}}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Actualizar Itinerario</a>
+        <a href="{{url_for('privado.eliminar_itinerario')}}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Eliminar Itinerario</a>
+    </div>
+    {%endblock%}

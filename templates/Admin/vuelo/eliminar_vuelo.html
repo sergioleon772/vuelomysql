@@ -1,0 +1,19 @@
+{% extends "admin.html" %}
+
+{% block title %}Eliminar Vuelo{% endblock %}
+
+{% block content%}
+<center>
+    <h1 style="margin-top: 100px;">Eliminar Vuelo</h1>
+    {%if mensaje %}<h4>{{mensaje}}</h4>{%endif%}
+    {%include "errores.html"%}
+    <form action="{{url_for('privado.eliminar_vuelo')}}" method="POST">
+        <div class="form-group col-md-6">
+            <label for="idVuelo">CODIGO VUELO</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="idVuelo" placeholder="Ingrese ID Vuelo">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Eliminar Vuelo</button>
+    </form>
+</center>
+{%endblock%}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Pago Fallido{% endblock %}
+
+{% block content %}
+    <center>
+        <h1 style="margin-top: 10%;">¡Pago Fallido! ❌</h1>
+        <h3>Hubo un problema con el pago. Intenta nuevamente.</h3>
+        <a href="{{ url_for('ver_carrito') }}" class="btn btn-warning">Intentar de nuevo</a>
+    </center>
+{% endblock %}

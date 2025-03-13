@@ -1,0 +1,19 @@
+{% extends "admin.html" %}
+
+{% block title %}Admin{% endblock %}
+
+{% block content%}
+    <center style="margin-top: 10%;">
+        <h1>Eliminar Cliente</h1>
+        {%if mensaje %}<h3>{%if mensaje.getvalue()!=None%}{{mensaje.getvalue()}}{%endif%}</h3>{%endif%}
+        {%include "errores.html"%}
+        <form action="{{url_for('privado.eliminar_cliente')}}"method="POST">
+            <div class="form-group col-md-6">
+                <label for="rutEl">RUT</label>
+                <input type="text" class="form-control" name="rutEl" placeholder="Ingrese Rut">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Eliminar</button>
+        </form>
+    </center>
+{%endblock%}

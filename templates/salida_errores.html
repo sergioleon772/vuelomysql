@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Agencia de Vuelos{% endblock %}
+
+{% block body%}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="static/imagen/logo.png" alt="Logo Avion" width="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Acerca</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Vuelos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>   
+    </nav>
+    <center>
+        <h1 style="margin-top: 100px;">¡Ups! Ha ocurrio un error :(</h1>
+        <a href="{{url_for('inicio')}}"class="btn btn-dark">Volver</a>
+    </center>
+    
+{%endblock%}

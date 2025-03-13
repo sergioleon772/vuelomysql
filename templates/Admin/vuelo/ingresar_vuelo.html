@@ -1,0 +1,50 @@
+{% extends "admin.html" %}
+
+{% block title %}Menu Vuelos{% endblock %}
+
+{% block content %}
+    <center>
+        <h1>Ingresar vuelo</h1>
+        {% if mensaje %}
+            <h4>{{ mensaje }}</h4>
+        {% endif %}
+        {% include "errores.html" %}
+        <form action="{{ url_for('privado.ingresar_vuelo') }}" method="POST" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="cod_agen_v">Código Agencia</label>
+                    <select class="form-control" id="cod_agen_v" name="cod_agen_v" required>
+                        <option value="" selected disabled>Seleccione una agencia</option>
+                        {% for agencia in agencias %}
+                            <option value="{{ agencia.id }}">{{ agencia.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="cod_itin_v">Código Itinerario</label>
+                    <select class="form-control" id="cod_itin_v" name="cod_itin_v" required>
+                        <option value="" selected disabled>Seleccione un itinerario</option>
+                        {% for itinerario in itinerarios %}
+                            <option value="{{ itinerario.id }}">{{ itinerario.ruta }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="canti_a_v">Cantidad de Asientos</label>
+                    <input type="number" class="form-control" id="canti_a_v" name="canti_a_v" placeholder="Ingrese Cantidad de Asientos" min="1" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="valor_vue">Valor</label>
+                    <input type="number" class="form-control" id="valor_vue" name="valor_vue" placeholder="Ingrese Valor del Vuelo" min="1" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="imagen_vuelo">Imagen del Vuelo</label>
+                    <input type="file" class="form-control" id="imagen_vuelo" name="imagen_vuelo">
+                </div>
+                
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
+    </center>
+{% endblock %}

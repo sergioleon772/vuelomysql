@@ -1,0 +1,66 @@
+{% extends "admin.html" %}
+
+{% block title %}Menu Cliente{% endblock %}
+
+{% block content%}
+    <h1 style="text-align: center;">Menu Agencia</h1>
+    <div style="text-align: center;">
+        <a href="{{url_for('privado.ingresar_agencia')}}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true" >Ingresar Agencia</a>
+         </div>
+    <h3 style="text-align: center; margin-top: 5%;">Agencias Registradas</h3>
+    <table class="table bg-dark text-white">
+        <thead>
+            <tr>
+                <th scope="col">ID Agencia</th>
+                <th scope="col">Rut Agencia</th>
+                <th scope="col">Nombre Agencia</th>
+                <th scope="col">Region Agencia</th>
+                <th scope="col">Comuna Agencia</th>
+                <th scope="col">Calle Agencia</th>
+                <th scope="col">Numero Agencia</th>
+                <th scope="col">Telefono Agencia</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        {%for or in filas%}
+            <tbody>
+            <tr>
+                <th scope="row">{{or[0]}}</th>
+                <td>{{or[1]}}</td>
+                <td>{{or[2]}}</td>
+                <td>{{or[3]}}</td>
+                <td>{{or[4]}}</td>
+                <td>{{or[5]}}</td>
+                <td>{{or[6]}}</td>
+                <td>{{or[7]}}</td>
+                <td>
+                    <a href="{{url_for('privado.actualizar_agencia', cod_ag_act=or[0])}}" class="btn btn-sm btn-warning">Actualizar</a>
+                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{or[0]}}">Eliminar</button>
+                    <div class="modal fade" id="confirmDeleteModal{{or[0]}}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Estás seguro de que quieres eliminar esta agencia?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <form method="POST" action="{{ url_for('privado.eliminar_agencia') }}" style="display: inline;">
+                                        <input type="hidden" name="cod_ag_act" value="{{ or[0] }}">
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        {%endfor%}
+    </table>
+{%endblock%}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Agencia de Vuelos{% endblock %}
+
+{% block body%}
+    <center style="margin-top: 10%;">
+        <h1>Eliminar Cliente</h1>
+        {%if mensaje %}<h3>{%if mensaje.getvalue()!=None%}{{mensaje.getvalue()}}{%endif%}</h3>{%endif%}
+        {%include "errores.html"%}
+        <form action="{{url_for('privado.eliminar_cuenta')}}"method="POST">
+            <h1>¿Desea Eliminar su Cuenta?</h1>
+            <br>
+            <button type="submit" class="btn btn-primary">Eliminar</button>
+            <br>
+            <a href="{{url_for('perfil')}}">Volver</a>
+        </form>
+    </center>
+{%endblock%}

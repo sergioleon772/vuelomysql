@@ -1,0 +1,23 @@
+Crea un nuevo entorno virtual (si aún no lo tienes):
+python -m venv "nombreentorno"
+
+Activa el entorno virtual:
+
+CMD  = "nombreentorno""\Scripts\activate
+Powershell = "nombreentorno"\Scripts\Activate.ps1
+GIT BASH   =  source "nombreentorno"/Scripts/activate
+
+Instala las dependencias desde el archivo requirements.txt:
+
+pip install -r requirements.txt
+
+Si quieres guardar todas las dependencias instaladas para compartir el proyecto o replicarlo en otro lugar, usa:
+
+pip freeze > requirements.txt
+Y luego, para instalar en otro entorno:
+
+pip install -r requirements.txt
+
+desactivar entorno virtual
+
+deactivate

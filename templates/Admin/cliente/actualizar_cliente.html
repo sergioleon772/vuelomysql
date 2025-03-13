@@ -1,0 +1,50 @@
+{% extends "admin.html" %}
+
+{% block title %}Actualizar Cliente{% endblock %}
+
+{% block content%}
+    <center>
+        <h1>Actualizar datos del cliente</h1>
+        {%if mensaje %}<h3>{{mensaje}}</h3>{%endif%}
+        {%include "errores.html"%}
+        <form action="{{url_for('privado.actualizar_cliente')}}" method="POST">
+            
+            <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="rut">RUT</label>
+                <input type="text" class="form-control" name="rut" placeholder="Ingrese Rut" value="{{usuario.rut}} " readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" name="nombre" placeholder="Ingrese Nombre" value="{{usuario.nombre}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="apellido">Apellido</label>
+                <input type="text" class="form-control" name="apellido" placeholder="Ingrese apellido" value="{{usuario.apellido}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="region">REGION</label>
+                <input type="text" class="form-control" name="region" placeholder="Ingrese Region" value="{{usuario.region}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="comuna">COMUNA</label>
+                <input type="text" class="form-control" name="comuna" placeholder="Ingrese Comuna" value="{{usuario.comuna}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="calle">CALLE</label>
+                <input type="text" class="form-control" name="calle" placeholder="Ingrese Calle" value="{{usuario.calle}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="numero">NUMERO</label>
+                <input type="text" class="form-control" name="numero" placeholder="Ingrese Numero" value="{{usuario.numero}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="telefono">Telefono</label>
+                <input type="text" class="form-control" name="telefono" placeholder="Ingrese Telefono" value="{{usuario.telefono}}">
+            </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
+    </center>
+{%endblock%}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Pago{% endblock %}
+<head>
+    <script src="https://sdk.mercadopago.com/js/v2">
+    </script>
+    
+</head>
+{% block content %}
+    <center>
+        <h1 style="margin-top: 10%;">Confirmar Pago</h1>
+        <h2>Total a pagar: ${{ total }}</h2>
+        
+        <div id="wallet_container">
+        </div>
+        <script>
+          const mp = new MercadoPago('YOUR_PUBLIC_KEY', {
+            locale: 'es-CL'
+          });
+    
+          mp.bricks().create("wallet", "wallet_container", {
+            initialization: {
+                preferenceId: "<PREFERENCE_ID>",
+            },
+          });
+      </script>
+
+
+
+        <a href="{{ mp_url }}" class="btn btn-primary btn-lg">Pagar con Mercado Pago</a>
+
+        <br><br>
+        <a href="{{ url_for('ver_carrito') }}" class="btn btn-secondary">Volver al Carrito</a>
+    </center>
+{% endblock %}

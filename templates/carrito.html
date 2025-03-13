@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Carrito de Compras{% endblock %}
+
+{% block content %}
+    <center>
+        <h1 style="margin-top: 10%;">Carrito de {{ current_user.nombre }}</h1>
+        <div style="margin-left: 10%; margin-right: 10%;">
+            {% if vuelos %}
+                <table class="table bg-dark text-white">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID Vuelo</th>
+                            <th scope="col">Origen</th>
+                            <th scope="col">Destino</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vuelo in vuelos %}
+                        <tr>
+                            <td>{{ vuelo.id }}</td>
+                            <td>{{ vuelo.origen }}</td>
+                            <td>{{ vuelo.destino }}</td>
+                            <td>{{ vuelo.fecha }}</td>
+                            <td>${{ vuelo.valor }}</td>
+                            <td>
+                                <a href="{{ url_for('eliminar_del_carrito', vuelo_id=vuelo.id) }}" class="btn btn-danger btn-sm">Eliminar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Sección del total y botón de pago -->
+                <h2>Total a pagar: ${{ total }}</h2>
+
+                <form action="{{ url_for('procesar_pago') }}" method="POST">
+                    <input type="hidden" name="total" value="{{ total }}">
+                    <button type="submit" class="btn btn-success btn-lg">Pagar Ahora</button>
+                </form>
+
+            {% else %}
+                <h3>Tu carrito está vacío</h3>
+            {% endif %}
+        </div>
+    </center>
+{% endblock %}

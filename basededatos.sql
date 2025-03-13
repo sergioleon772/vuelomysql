@@ -1,0 +1,369 @@
+CREATE PROCEDURE INSERTAR_CLIENTE(
+    IN RUT_E VARCHAR(20),
+    IN NOMBRE_E VARCHAR(50),
+    IN APELLIDO_E VARCHAR(50),
+    IN CORREO_E VARCHAR(100),
+    IN FECHA_NAC_E VARCHAR(10),
+    IN REGION_E VARCHAR(50),
+    IN COMUNA_E VARCHAR(50),
+    IN CALLE_E VARCHAR(100),
+    IN NUMERO_E INT,
+    IN TELEFONO_E VARCHAR(20),
+    OUT MENSAJE VARCHAR(255)
+)
+BEGIN
+    DECLARE FECHA_NAC_NUEVA DATE;
+    DECLARE CLIENTE_EXISTE INT DEFAULT 0;
+
+    -- Intentar convertir la fecha
+    SET FECHA_NAC_NUEVA = STR_TO_DATE(FECHA_NAC_E, '%d/%m/%Y');
+
+    -- Validar el RUT
+    IF RUT_VALIDAR(RUT_E) = FALSE THEN
+        SET @MENSAJE = 'EL RUT DEL CLIENTE ES INVALIDO';
+    ELSE
+        -- Verificar si el cliente ya existe
+        SELECT COUNT(*) INTO CLIENTE_EXISTE FROM CLIENTE WHERE RUT_CLIENTE = RUT_E;
+        IF CLIENTE_EXISTE > 0 THEN
+            SET @MENSAJE = 'EL CLIENTE YA EXISTE';
+        ELSE
+            -- Verificar si el cliente es menor de edad (por ejemplo, 18 años)
+            IF TIMESTAMPDIFF(YEAR, FECHA_NAC_NUEVA, CURDATE()) < 18 THEN
+                SET @MENSAJE = 'CLIENTE MENOR DE EDAD';
+            ELSE
+                -- Insertar el cliente en la tabla
+                INSERT INTO CLIENTE (RUT_CLIENTE, NOMBRE, APELLIDO, CORREO, FECHA_NACIMIENTO, REGION, COMUNA, CALLE, NUMERO, TELEFONO)
+                VALUES (RUT_E, NOMBRE_E, APELLIDO_E, CORREO_E, FECHA_NAC_NUEVA, REGION_E, COMUNA_E, CALLE_E, NUMERO_E, TELEFONO_E);
+                SET @MENSAJE = 'CLIENTE INGRESADO CORRECTAMENTE'; -- Mensaje de éxito
+            END IF;
+        END IF;
+    END IF;
+	
+    -- Añadir un SELECT para depurar el mensaje
+    SELECT MENSAJE;
+    SET MENSAJE = @MENSAJE;
+
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE INSERTAR_AGENCIA(
+    IN RUT_AGENCIA_E VARCHAR(12),
+    IN NOMBRE_AGENCIA_E VARCHAR(100),
+    IN REGION_E VARCHAR(100),
+    IN COMUNA_E VARCHAR(100),
+    IN CALLE_E VARCHAR(100),
+    IN NUMERO_E VARCHAR(10),
+    IN TELEFONO_E VARCHAR(15),
+    OUT MENSAJE VARCHAR(255)
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+    BEGIN
+        ROLLBACK;
+        SET MENSAJE = 'ERROR AL INSERTAR LA AGENCIA';
+    END;
+    
+    -- Iniciar transacción
+    START TRANSACTION;
+    
+    -- Insertar la agencia
+    INSERT INTO AGENCIA (RUT_AGENCIA, NOMBRE_AGENCIA, REGION, COMUNA, CALLE, NUMERO, TELEFONO)
+    VALUES (RUT_AGENCIA_E, NOMBRE_AGENCIA_E, REGION_E, COMUNA_E, CALLE_E, NUMERO_E, TELEFONO_E);
+    
+    -- Confirmar transacción
+    COMMIT;
+    
+    -- Mensaje de éxito
+    SET MENSAJE = 'AGENCIA INSERTADA CORRECTAMENTE';
+
+END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE INSERTAR_ITINERARIO(
+    IN FECHA_SALIDA_ITI DATE,
+    IN HORA_SAL VARCHAR(5),
+    IN FECHA_LLEGADA_ITI DATE,
+    IN HORA_LLEG VARCHAR(5),
+    IN COD_ORIG INT,
+    IN COD_DEST INT,
+    OUT MENSAJE VARCHAR(255)
+)
+BEGIN
+    DECLARE ORIGEN_EXISTE INT DEFAULT 0;
+    DECLARE DESTINO_EXISTE INT DEFAULT 0;
+    SET MENSAJE = '';
+
+    -- Validar códigos de origen y destino
+    IF COD_ORIG = 0 THEN
+        SET MENSAJE = CONCAT(MENSAJE, 'Código de origen no puede ser 0. ');
+    ELSE
+        SELECT COUNT(*) INTO ORIGEN_EXISTE FROM ORIGEN WHERE COD_ORIGEN = COD_ORIG;
+        IF ORIGEN_EXISTE = 0 THEN
+            SET MENSAJE = CONCAT(MENSAJE, 'Código de origen no existe. ');
+        END IF;
+    END IF;
+
+    IF COD_DEST = 0 THEN
+        SET MENSAJE = CONCAT(MENSAJE, 'Código de destino no puede ser 0. ');
+    ELSE
+        SELECT COUNT(*) INTO DESTINO_EXISTE FROM DESTINO WHERE COD_DESTINO = COD_DEST;
+        IF DESTINO_EXISTE = 0 THEN
+            SET MENSAJE = CONCAT(MENSAJE, 'Código de destino no existe. ');
+        END IF;
+    END IF;
+
+    -- Validar fecha de salida
+    IF FECHA_SALIDA_ITI <= CURDATE() THEN
+        SET MENSAJE = CONCAT(MENSAJE, 'La fecha de salida debe ser futura. ');
+    END IF;
+
+    -- Insertar si no hay errores
+    IF MENSAJE = '' THEN
+        INSERT INTO ITINERARIO (FECHA_VUELO, HORA_SALIDA, HORA_LLEGADA, COD_ORIGEN, COD_DESTINO)
+        VALUES (FECHA_SALIDA_ITI, CONCAT(FECHA_SALIDA_ITI, ' ', HORA_SAL), CONCAT(FECHA_LLEGADA_ITI, ' ', HORA_LLEG), COD_ORIG, COD_DEST);
+        SET MENSAJE = 'Itinerario ingresado correctamente.';
+    END IF;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE ELIMINAR_ITINERARIO(
+    IN COD_ITI INT,
+    OUT MENSAJE VARCHAR(255)
+)
+BEGIN
+    IF ESTA_ITINERARIO(COD_ITI) THEN
+        DELETE FROM ITINERARIO WHERE COD_ITINERARIO = COD_ITI;
+        SET MENSAJE = 'Itinerario eliminado correctamente.';
+    ELSE
+        SET MENSAJE = 'El itinerario no existe.';
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE INSERTAR_VUELO(
+    IN ID_AGENCIA_VU INT,
+    IN COD_ITINER INT,
+    IN CANTIDAD_A INT,
+    IN VALOR_V DECIMAL(10,2),
+    IN TOTAL_ASIENT INT,
+    OUT MENSAJE VARCHAR(255)
+)
+BEGIN
+    DECLARE COD_N INT DEFAULT 0;
+    DECLARE CONTADOR INT DEFAULT 0;
+
+    -- Verificar si la agencia existe
+    SELECT COUNT(*) INTO CONTADOR FROM AGENCIA WHERE ID_AGENCIA = ID_AGENCIA_VU;
+    
+    IF CONTADOR = 0 THEN
+        SET MENSAJE = 'NO SE PUEDE CREAR EL VUELO, LA AGENCIA NO EXISTE';
+       
+    END IF;
+
+    -- Verificar si el itinerario existe
+    SELECT COUNT(*) INTO CONTADOR FROM ITINERARIO WHERE COD_ITINERARIO = COD_ITINER;
+    
+    IF CONTADOR = 0 THEN
+        SET MENSAJE = 'NO SE PUEDE CREAR EL VUELO, EL ITINERARIO NO EXISTE';
+       
+    END IF;
+
+    -- Obtener el siguiente código de vuelo
+    SELECT IFNULL(MAX(COD_VUELO), 0) + 1 INTO COD_N FROM VUELO;
+    
+    -- Insertar el nuevo vuelo
+    INSERT INTO VUELO (COD_VUELO, ID_AGENCIA, COD_ITINERARIO, CANTIDAD_ASIENTO, VALOR, TOTAL_ASIENTOS)
+    VALUES (COD_N, ID_AGENCIA_VU, COD_ITINER, CANTIDAD_A, VALOR_V, TOTAL_ASIENT);
+
+    -- Mensaje de éxito
+    SET MENSAJE = 'VUELO CREADO';
+
+END$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE ACTUALIZAR_VUELO(
+    IN COD_VUELO_E INT,
+    IN ID_AGENCIA_EN INT,
+    IN COD_ITINER_E INT,
+    IN VALOR_VU DECIMAL(10,2),
+    OUT MENSAJE VARCHAR(255)
+)
+BEGIN
+    DECLARE TOT INT DEFAULT 0;
+    DECLARE BIEN BOOLEAN DEFAULT FALSE;
+    DECLARE MAL BOOLEAN DEFAULT FALSE;
+
+    -- Verificar si el vuelo existe
+    SELECT COUNT(*) INTO TOT
+    FROM VUELO
+    WHERE COD_VUELO = COD_VUELO_E;
+
+    IF TOT > 0 THEN
+        -- Si el vuelo existe, realizar la actualización
+        UPDATE VUELO
+        SET ID_AGENCIA = ID_AGENCIA_EN,
+            COD_ITINERARIO = COD_ITINER_E,
+            VALOR = VALOR_VU + VALOR_VU * 0.2
+        WHERE COD_VUELO = COD_VUELO_E;
+
+        -- Asignar mensaje de éxito
+        SET MENSAJE = 'VUELO ACTUALIZADO';
+        COMMIT;
+
+    ELSE
+        -- Si no se encuentra el vuelo, asignar el mensaje de error
+        SET MENSAJE = 'EL VUELO A MODIFICAR NO SE ENCUENTRA';
+        ROLLBACK;
+    END IF;
+
+END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE ACTUALIZAR_AGENCIA(
+    IN p_id_agencia INT,
+    IN p_nombre_agencia VARCHAR(100),
+    IN p_region VARCHAR(100),
+    IN p_comuna VARCHAR(100),
+    IN p_calle VARCHAR(100),
+    IN p_numero INT,
+    IN p_telefono INT,
+    OUT p_mensaje VARCHAR(255)
+)
+BEGIN
+    DECLARE agencia_existe INT;
+
+    -- Verificar si la agencia existe
+    SELECT COUNT(*) INTO agencia_existe FROM AGENCIA WHERE ID_AGENCIA = p_id_agencia;
+
+    IF agencia_existe = 0 THEN
+        SET p_mensaje = 'Error: La agencia no existe';
+    ELSE
+        -- Actualizar la agencia sin modificar el RUT_AGENCIA
+        UPDATE AGENCIA
+        SET 
+            NOMBRE_AGENCIA = p_nombre_agencia,
+            REGION = p_region,
+            COMUNA = p_comuna,
+            CALLE = p_calle,
+            NUMERO = p_numero,
+            TELEFONO = p_telefono
+        WHERE ID_AGENCIA = p_id_agencia;
+
+        SET p_mensaje = 'Agencia actualizada correctamente';
+    END IF;
+END $$
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE ACTUALIZAR_ORIGEN(
+    IN COD_ORIGEN_AC INT,
+    IN AEROPUERTO_N VARCHAR(255),
+    IN CIUDAD_NUEVA VARCHAR(255),
+    IN PAIS_N VARCHAR(255),
+    OUT MENSAJE VARCHAR(255)
+)
+BEGIN
+    DECLARE TOTAL INT;
+    
+    -- Verificar si el origen existe
+    SELECT COUNT(*) INTO TOTAL FROM ORIGEN WHERE COD_ORIGEN = COD_ORIGEN_AC;
+
+    IF TOTAL = 1 THEN
+        -- Actualizar el registro
+        UPDATE ORIGEN 
+        SET AEROPUERTO = AEROPUERTO_N,
+            CIUDAD = CIUDAD_NUEVA,
+            PAIS = PAIS_N
+        WHERE COD_ORIGEN = COD_ORIGEN_AC;
+
+        -- Asignar mensaje de éxito
+        SET MENSAJE = 'EL ORIGEN HA SIDO MODIFICADO SATISFACTORIAMENTE';
+    ELSE
+        -- Asignar mensaje de error
+        SET MENSAJE = 'EL ORIGEN A MODIFICAR NO EXISTE';
+    END IF;
+END //
+
+DELIMITER ;
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `INSERTAR_ORIGEN`(
+    IN AEROP_E VARCHAR(100),
+    IN CIUDAD_E VARCHAR(100),
+    IN PAIS_E VARCHAR(100),
+    OUT MENSAJE VARCHAR(255)
+)
+BEGIN
+    DECLARE NUEVO_COD INT DEFAULT 0;
+    DECLARE VAR INT DEFAULT 0;
+
+    -- Verificar si el aeropuerto ya existe
+    SELECT COUNT(*) INTO VAR FROM ORIGEN WHERE AEROPUERTO = AEROP_E;
+
+    -- Obtener el nuevo código
+    SELECT IFNULL(MAX(COD_ORIGEN) + 1, 1) INTO NUEVO_COD FROM ORIGEN;
+
+    IF VAR = 0 THEN
+        INSERT INTO ORIGEN (COD_ORIGEN, AEROPUERTO, CIUDAD, PAIS)
+        VALUES (NUEVO_COD, AEROP_E, CIUDAD_E, PAIS_E);
+        
+        SET MENSAJE = 'ORIGEN INGRESADO';
+    ELSE
+        SET MENSAJE = 'EL AEROPUERTO YA SE ENCUENTRA INGRESADO';
+    END IF;
+END
+
+DELIMITER $$
+
+CREATE PROCEDURE INSERTAR_DESTINO(
+    IN AEROP_L VARCHAR(100),
+    IN CIUDAD_L VARCHAR(100),
+    IN PAIS_L VARCHAR(100),
+    OUT MENSAJE VARCHAR(255)
+)
+BEGIN
+    DECLARE NUEVO_COD INT DEFAULT 0;
+    DECLARE VAR INT DEFAULT 0;
+
+    -- Verificar si el aeropuerto ya existe en la tabla DESTINO
+    SELECT COUNT(*) INTO VAR FROM DESTINO WHERE AEROPUERTO_D = AEROP_L;
+
+    -- Obtener el nuevo código
+    SELECT IFNULL(MAX(COD_DESTINO) + 1, 1) INTO NUEVO_COD FROM DESTINO;
+
+    IF VAR = 0 THEN
+        INSERT INTO DESTINO (COD_DESTINO, AEROPUERTO_D, CIUDAD_D, PAIS_D)
+        VALUES (NUEVO_COD, AEROP_L, CIUDAD_L, PAIS_L);
+        
+        SET MENSAJE = 'DESTINO INGRESADO';
+    ELSE
+        SET MENSAJE = 'EL AEROPUERTO DE DESTINO YA SE ENCUENTRA INGRESADO';
+    END IF;
+END$$
+
+DELIMITER ;

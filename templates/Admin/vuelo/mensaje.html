@@ -1,0 +1,19 @@
+{% extends "admin.html" %}
+
+{% block title %}Mensaje Cliente{% endblock %}
+
+{% block content %}
+    <div style="text-align: center; margin-top: 50px;">
+        {% if mensaje %}
+            <h1 class="btn btn-sm btn-success">{{ mensaje }}</h1>
+        {% elif errores %}
+            <h1>Error: {{ errores[0] }}</h1>
+        {% endif %}
+    </div>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = "{{ url_for('publico.vista_vuelo') }}";
+        }, 3000); // 3000 milisegundos = 3 segundos
+    </script>
+{% endblock %}

@@ -1,0 +1,42 @@
+<div class="col-md-3" style="margin-top: 20px;">
+    <div class="card border-primary" style="background-color: #f8f9fa;">
+        <h3><img src="{{ imagen }}" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+        <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+            <div class="roundtrip-box">
+                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+            </div>
+        </div>
+        <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+            <div class="col-12 d-flex text-center flex-column">
+                <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">{{ origen }} a</h5>
+                <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">{{ destino }}</h1>
+            </div>
+        </div>
+        <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+            <div class="col-12 custom-col fly-box">
+                <div class="h-container">
+                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                </div>  
+            </div>
+            <div class="col-12 custom-col">
+                <div class="bg-red price-box">
+                    <h2 class="price-format small-sign p-type-7"><span class="price-amount">{{ fecha }}</span></h2>
+                    <div class="d-inline-flex flex-column tax-box">
+                        <div class="border-top-tax-box">
+                            <span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;
+                            <h4 class="d-inline-block price-format small-sign p-type-7">
+                                <span class="price-sign">$</span>
+                                <span class="price-amount">{{ precio }}</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column no-gutters custom-row custom-row-buy">
+                <div class="col-12 custom-col">
+                    <a href="{{url_for('/detalle/')}}" class="btn btn-dark">{{Detalle}}</a>
+                </div>
+            </div>      
+        </div>
+    </div>
+</div>

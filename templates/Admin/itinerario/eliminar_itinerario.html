@@ -1,0 +1,20 @@
+{% extends "admin.html" %}
+
+{% block title %}Eliminar Itinerario{% endblock %}
+
+{% block content%}
+    <center>
+        <div style="margin-top: 170px;"><h1>Ingresar Codigo de itinerario</h1></div>
+        {%if mensaje %}<h4>{%if mensaje.getvalue()!=None%}*{{mensaje.getvalue()}}*{%endif%}</h4>{%endif%}
+        {%include "errores.html"%}
+        <form action="{{url_for('privado.eliminar_itinerario')}}" method="POST">
+            <div class="form-group col-md-6">
+                <label for="cod_iti_eli">CODIGO ITINERARIO A ELIMINAR</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="cod_iti_eli" placeholder="Ingrese ID Itinerario">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+            <br>
+        </form>
+    </center>
+{%endblock%}

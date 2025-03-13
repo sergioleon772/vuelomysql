@@ -1,0 +1,45 @@
+{% extends "admin.html" %}
+
+{% block title %}Actualizar Vuelo{% endblock %}
+
+{% block content %}
+<center>
+    <h1 style="margin-top: 100px;">Modificar datos de vuelo</h1>
+    
+    {% if mensaje=='VUELO ACTUALIZADO' %}
+        <div class="alert alert-success">{{ mensaje }}</div>
+        <script>
+            setTimeout(function() {
+                window.location.href = "{{ url_for('publico.vista_vuelo') }}";
+            }, 3000); // 3000 milisegundos = 3 segundos
+        </script>
+    {% elif errores %}
+        <div class="alert alert-danger">Error: {{ errores[0] }}</div>
+    {% endif %}
+
+    {% include "errores.html" %}
+    
+    <form action="{{ url_for('privado.actualizar_vuelo') }}" method="POST">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="cod_vuelo_m">Código Vuelo</label>
+                <input type="text" class="form-control" id="cod_vuelo_m" name="cod_vuelo_m" value="{{ vuelo.cod_vuelo }}" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="cod_agenc_m">Código Agencia</label>
+                <input type="number" class="form-control" id="cod_agenc_m" name="cod_agenc_m" value="{{ vuelo.id_agencia }}" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="cod_iti_mod">Código de Itinerario</label>
+                <input type="number" class="form-control" id="cod_iti_mod" name="cod_iti_mod" value="{{ vuelo.cod_itinerario }}" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="valor_vue">Valor</label>
+                <input type="number" class="form-control" id="valor_vue" name="valor_vue" value="{{ vuelo.valor }}" step="0.01" required>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Actualizar Vuelo</button>
+    </form>
+</center>
+{% endblock %}

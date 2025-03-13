@@ -1,0 +1,33 @@
+{% extends "admin.html" %}
+
+{% block title %}Compras Pasajes{% endblock %}
+
+{% block content%}
+<h3 style="text-align: center; margin-top: 5%;">Pasajes Comprados</h3>
+<table class="table bg-dark text-white">
+    <thead>
+        <tr>
+            <th scope="col">ID Pasaje</th>
+            <th scope="col">Rut Cliente</th>
+            <th scope="col">ID Vuelo</th>
+            <th scope="col">Numero Asiento</th>
+            <th scope="col">Fecha Vuelo</th>
+            <th scope="col">Tipo de Pago</th>
+            <th scope="col">Total</th>
+        </tr>
+    </thead>
+    {%for or in filas%}
+        <tbody>
+        <tr>
+            <th scope="row">{{or[0]}}</th>
+            <td>{{or[1]}}</td>
+            <td>{{or[2]}}</td>
+            <td>{{or[3]}}</td>
+            <td>{{or[4]}}</td>
+            <td>{{or[5]}}</td>
+            <td>{{or[6]}}</td>
+        </tr>
+        </tbody>
+    {%endfor%}
+</table>
+{%endblock%}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Ingresar encuesta{% endblock %}
+
+{% block content%}
+<center>
+    <div style="margin-top: 2%;"><h1>Ingresar encuesta</h1></div>
+    {%if mensaje %}<h3>{%if mensaje.getvalue()!=None%}{{mensaje.getvalue()}}{%endif%}</h3>{%endif%}
+    {%include "errores.html"%}
+    <form action="{{url_for('privado.ingresar_encuesta')}}" method="POST">
+        <div class="form-group col-md-6">
+            <label for="cod_p">CODIGO PASAJE</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="cod_p" placeholder="Ingrese ID Pasaje">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="ate">ATENCION</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="ate" placeholder="Ingrese Atencion">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="cal">CALIDAD</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="cal" placeholder="Ingrese Calidad">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="rap">RAPIDEZ</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="rap" placeholder="Ingrese Rapidez">
+        </div>
+        <button type="submit" class="btn btn-primary">ingresar</button>
+        
+    </form>
+</center>
+{% endblock %}

@@ -1,0 +1,755 @@
+{% extends "base.html" %}
+
+{% block title %}Agencia de Vuelos{% endblock %}
+
+{% block content%}
+    <center>
+        <header class="main-header" style="background: url(static/imagen/avion2.jpg); background-size: cover;">
+            <div class="background-overlay text-white py-5">
+                <img src="static/imagen/logo2.png" alt="Logo Pagina Principal" width="300">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 text-center justify-content-center align-self-center">
+                            <!-- weather widget start -->
+                            <h1 style="font-weight: bold;">Bienvendio</h1>
+                            <p>Ingrese su cuenta en el recuadro de abajo</p>
+                            {% if current_user.is_authenticated %}
+                                <p style="font-weight: bold;">¡Hola {{current_user.nombre}}!</p>
+                                {#{{current_user.rut}}#}
+                                <a href="{{url_for('perfil')}}"class="btn btn-dark">Ir a mi perfil</a>
+                                <a href="{{url_for('autenticacion.cerrar_sesion')}}"class="btn btn-dark">Cerrar Sesion</a>
+                            {% else %}
+                                <a href="{{url_for('autenticacion.iniciar_sesion')}}"class="btn btn-dark">Iniciar Sesion</a>
+                                <a href="{{url_for('privado.registrar2')}}" class="btn btn-dark">Registrarse</a>
+                            {% endif %}                    
+                        </div>
+                        <div class="col-md-6">
+                            <a target="_blank" href="https://hotelmix.es/weather/santiago-2114"><img src="https://w.bookcdn.com/weather/picture/28_2114_1_4_e67e22_250_d35401_ffffff_ffffff_1_2071c9_ffffff_0_6.png?scode=124&domid=582&anc_id=80838" alt="booked.net"/></a><!-- weather widget end -->
+                            <div style="text-align:center;padding:1em 0;"> 
+                                <h3><a style="text-decoration:none;" 
+                                    href="https://www.zeitverschiebung.net/es/city/3871336">
+                                    <span style="color:rgb(128, 128, 128);">Hora actual en</span><br />Santiago, Chile</a>
+                                </h3> <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=medium&timezone=America%2FSantiago" 
+                                width="100%" height="115" frameborder="0" seamless></iframe> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--Newsletter-->
+        <section class="bg-dark text-white py-3">
+        </section>
+        <!--Features-->
+        <section class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <h3 style="font-weight: bold;">Viajes a todo Chile</h3>
+                                <p>
+                                    Viaja por todo chile desde Arica a Punta Arenas
+                                    <img src="static/imagen/chile.png" alt="" width="100">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body" style="margin-bottom: 45%;">
+                                <h3 style="font-weight: bold;">Atención las 24 horas</h3>
+                                <p>
+                                    Disponible la atencion al cliente en todo momento
+                                    <img src="static/imagen/atencion.png" alt="" width="200" style="margin-top: 10%;">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-primary">
+                            <div class="card-body" style="margin-bottom: 50%;">
+                                <h3 style="font-weight: bold;">Dejanos tu FeedBack</h3>
+                                <p>
+                                    Contamos con calificaciones del servicio
+                                    <img src="static/imagen/encuesta.png" alt="" width="200" style="margin-top: 3%;">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body" style="margin-bottom: 55%;">
+                                <h3>Varios Aeropuertos</h3>
+                                <p>
+                                    Añadimos Aeropuertos constantemente para mejor servicio
+                                    <img src="static/imagen/aero.png" alt="" width="200" style="margin-bottom: 4%;">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        <section class="bg-dark text-white py-2 rounded" style="margin-top: 1%;">
+                            <h3 style="font-weight: bolder;">Vuelos Nacionales</h3>
+                        </section> 
+                    <!--VUELOS-->
+                    <div class="container">
+                        <div class="row">
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(80, 255, 173);">
+                            <h3><img src="static/imagen/montt.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Temuco a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">Pto Montt</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">02/02/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">37.000</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="#"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>   
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                    <!--2 VUEL-->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(80, 191, 255);">
+                            <h3><img src="static/imagen/Coquimbo.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                            
+                                
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Talca a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">Coquimbo</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">15/01/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">13.000</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>  
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                    <!--3-->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(80, 191, 255);">
+                            <h3><img src="static/imagen/santiago1.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                            
+                                
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Arica a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">Santiago</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">25/01/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">27.500</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>   
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                    <!--4 -->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(80, 255, 103);">
+                            <h3><img src="static/imagen/valdivia.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Rancagua a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">Valdivia</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">17/01/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">18.800</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>   
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                    <!--5-->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(238, 255, 80);">
+                            <h3><img src="static/imagen/arica.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Isla de pascua a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">Arica</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">20/01/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">40.000</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>    
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                    <!--6-->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(255, 194, 80);">
+                            <h3><img src="static/imagen/iquique.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Santiago a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">iquique</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">24/01/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">30.000</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>   
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                    <!--7-->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(255, 80, 89);">
+                            <h3><img src="static/imagen/la_serena.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Rancagua a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">La Serena</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">03/02/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">40.000</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>  
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                    <!--8-->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(200, 80, 255);">
+                            <h3><img src="static/imagen/Atacama.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Talca a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 40px;">Atacama</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">10/02/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">96.000</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>    
+                                                </div>
+                                            </div>      
+                                    </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                
+            </div>
+            
+            <!--otro espacio-->
+            <section class="bg-dark text-white py-2 rounded" style="margin-top: 1%; margin-left: 14%; margin-right: 14%;">
+                <h3 style="font-weight: bolder;">Vuelos Internacionales</h3>
+            </section>
+            <div class="container">
+                <div class="row">
+                    <!--vuelo inter1-->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(241, 250, 246);">
+                            <h3><img src="static/imagen/Lima.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Concepcion a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">Lima</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">02/02/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">95.000</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>  
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                    <!--vuelo int2-->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(207, 129, 142);">
+                            <h3><img src="static/imagen/milan.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Santiago a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">Milan</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">22/02/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">240.000</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>  
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                    <!--3 int-->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(204, 205, 207);">
+                            <h3><img src="static/imagen/Kiew.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Santiago a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">Kiew</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">22/02/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">340.000</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>   
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                    <!--4 int-->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(131, 194, 30);">
+                            <h3><img src="static/imagen/Paris.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Temuco a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">Paris</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">15/02/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">280.000</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>   
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                    <!--5 int-->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(179, 66, 32);">
+                            <h3><img src="static/imagen/Miami.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Arica a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">Miami</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">18/01/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">370.000</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>   
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                    <!--6 int-->
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card border-primary" style="background-color: rgb(49, 160, 114);">
+                            <h3><img src="static/imagen/Barcelona.jpg" width="500" height="500" class="img-fluid d-none d-sm-block" style="border: 2px solid #fff;"></h3>
+                                    <div class="d-flex flex-row no-gutters custom-row custom-row-new custom-row-roundtrip">
+                                        <div class="roundtrip-box">
+                                            
+                                                <h5 class="font-weight-bolder"> VIAJE DESDE</h5>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column custom-row w-100 custom-row-destination-name">
+                                        <div class="col-12 d-flex text-center flex-column">
+                                            <h5 class="destination-origin mb-0 mt-auto w-100" style="font-size: 30px;">Osorno a</h5>
+                                            <h1 class="destination-name mt-0 mb-auto w-100" style="font-size: 45px;">Barcelona</h1>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column no-gutters custom-row custom-row-price-box">
+                                            <div class="col-12 custom-col fly-box">
+                                                <div class="h-container">
+                                                    <h5 class="font-weight-bolder">FECHA VUELO</h5>
+                                                </div>  
+                                            </div>
+                                            <div class="col-12 custom-col">
+                                                <div class="bg-red price-box">
+                                                    <h2 class="price-format   small-sign   p-type-7" data-sign=""><span class="price-amount">30/01/2021</span></h2>
+                                                    <div class="d-inline-flex flex-column tax-box">
+                                                            <div class="border-top-tax-box "><span class="font-weight-bold">Precio Viaje</span>&nbsp;&nbsp;<h4 class="d-inline-block price-format  small-sign   p-type-7" data-sign="">
+                                                                <span class="price-sign">$</span>
+                                                                <span class="price-amount">320.000</span>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column no-gutters custom-row custom-row-buy" style="color: mediumturquoise;">
+                                                <div class="col-12 custom-col">
+                                                    <a href="{{url_for('publico.vista_vuelos_index')}}"class="btn btn-dark">Detalle
+                                                    </a>
+                                                    <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar</a>   
+                                                </div>
+                                            </div>      
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                
+        
+            
+                    
+        </section>
+        
+        <!--About-->
+        <section class="bg-ligth">
+            <div class="container">
+                <div class="row">
+                    <div class="m-5">
+                        <h3>¿Por qué viajar con nosotros?</h3>
+                        <p>Contamos con viajes a todo Chile y el mundo mediante las compras de tickets con codigo QR incluido, además de contar con la constante integración de aeropuertos para mejorar el servicio</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--FinAbout-->
+        
+        <section class="team">
+            <div class="container p-4">
+                <footer style="font-weight: bold;">©Derechos reservados a grupo de Felipe Agurto Henriquez </footer>
+            </div>
+        </section>
+    </center>
+{%endblock%}

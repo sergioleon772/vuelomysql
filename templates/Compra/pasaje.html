@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Compra Pasaje{% endblock %}
+
+{% block content%}
+    <center style="margin-top: 2%;">
+        <h1>Comprar Pasaje</h1>
+        {%if mensaje %}<h3>{%if mensaje.getvalue()!=None%}{{mensaje.getvalue()}}{%endif%}</h3>{%endif%}
+        {%include "errores.html"%}
+        <form action="{{url_for('privado.compra_pasaje')}}"method="POST">
+            <div class="form-group col-md-6">
+                <label for="cod_vuelo">ID Vuelo</label>
+                <input type="text" class="form-control" name="cod_vuelo" placeholder="Ingrese Vuelo">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="nAsi">Numero Asiento</label>
+                <input type="text" class="form-control" name="nAsi" placeholder="Ingrese Vuelo">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="fVuelo">Fecha Vuelo</label>
+                <input type="text" class="form-control" name="fVuelo" placeholder="Ingrese Vuelo">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="tarj">Tarjeta</label>
+                <input type="text" class="form-control" name="tarj" placeholder="Ingrese Vuelo">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="cvv">CVV</label>
+                <input type="text" class="form-control" name="cvv" placeholder="Ingrese Vuelo">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Comprar</button>
+            <a href="{{url_for('privado.ticket')}}"class="btn btn-secondary active">Ver ticket</a>
+        </form>
+        <h3 style="margin-top: 2%; font-weight: bolder;">Vuelos Disponibles</h3>
+            <div style="margin-left: 5%; margin-right: 5%;">
+            <table class="table bg-dark text-white" style="margin-right: 5%;">
+                <thead>
+                    <tr>
+                        <th scope="col">ID Vuelo</th>
+                        <th scope="col">Ciudad Origen</th>
+                        <th scope="col">Ciudad Destino</th>
+                        <th scope="col">Fecha Vuelo</th>
+                        <th scope="col">Cantidad Asientos</th>
+                    </tr>
+                </thead>
+                {%for or in filas%}
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{or[0]}}</th>
+                        <td>{{or[1]}}</td>
+                        <td>{{or[2]}}</td>
+                        <td>{{or[3]}}</td>
+                        <td>{{or[4]}}</td>
+                    </tr>
+                    </tbody>
+                {%endfor%}
+            </table>
+        </div>
+    </center>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock%}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Agencia de Vuelos{% endblock %}
+
+{% block body%}
+    <center>
+        <!--Navegacion-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <img src="static/imagen/logo2.png" alt="Logo Avion" width="40">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Acerca</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Vuelos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>   
+        </nav>
+        <div style="margin-bottom: 5%;"><h1>Registro Usuario</h1></div>
+        {%if mensaje %}<h3>{%if mensaje.getvalue()!=None%}{{mensaje.getvalue()}}{%endif%}</h3>{%endif%}
+        {%include "errores.html"%}
+        <form action="{{url_for('registrar2')}}" method="POST">
+                <div class="form-group col-md-6">
+                    <label for="rut">RUT</label>
+                    <input type="text" class="form-control" name="rut" placeholder="Ingrese Rut">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" placeholder="Ingrese Nombre">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="apellido">Apellido</label>
+                    <input type="text" class="form-control" name="apellido" placeholder="Ingrese apellido">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="correo">Correo</label>
+                    <input type="email" class="form-control" name="correo" placeholder="Ingrese Correo">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="fecha_nac">Fecha Nacimiento</label>
+                    <input type="text" class="form-control" name="fecha_nac" placeholder="Ingrese Fecha Nacimiento">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="region">REGION</label>
+                    <input type="text" class="form-control" name="region" placeholder="Ingrese Region">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="comuna">COMUNA</label>
+                    <input type="text" class="form-control" name="comuna" placeholder="Ingrese Comuna">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="calle">CALLE</label>
+                    <input type="text" class="form-control" name="calle" placeholder="Ingrese Calle">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="numero">NUMERO</label>
+                    <input type="text" class="form-control" name="numero" placeholder="Ingrese Calle">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="telefono">Telefono</label>
+                    <input type="text" class="form-control" name="telefono" placeholder="Ingrese Telefono">
+                </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
+    </center>
+{%endblock%}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Ingresar Encuesta{% endblock %}
+
+{% block content%}
+    <center>
+        <h1>Ingresar Encuesta</h1>
+        {%if mensaje %}<h3>{%if mensaje.getvalue()!=None%}{{mensaje.getvalue()}}{%endif%}</h3>{%endif%}
+        {%include "errores.html"%}
+        <form action="{{url_for('privado.ingresar_encuesta')}}" method="POST">
+            <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="rutCli">RUT</label>
+                <input type="number" class="form-control" name="rutCli" placeholder="Ingrese Rut">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="codPas">ID Pasaje</label>
+                <input type="number" class="form-control" name="codPas" placeholder="Ingrese Nombre">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="atencionEn">Atencion</label>
+                <input type="number" class="form-control" name="atencionEn" placeholder="Ingrese apellido">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="calidadEn">Calidad</label>
+                <input type="number" class="form-control" name="calidadEn" placeholder="Ingrese Region">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="rapidezEn">Rapidez</label>
+                <input type="number" class="form-control" name="rapidezEn" placeholder="Ingrese Comuna">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
+    </center>
+{%endblock%}

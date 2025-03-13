@@ -1,0 +1,20 @@
+:root{
+    --primary: blue;
+    --light: white;
+    --grey: #efefee;
+}
+
+.bg-primay{
+    background-color: var(--primary) !important;
+}
+
+#sidebar-container{
+    min-height: 100vh;
+}
+#sidebar-container .logo{
+    padding: .875rem 1.25rem;
+}
+#sidebar-container .menu{
+    width: 18rem;
+}
+

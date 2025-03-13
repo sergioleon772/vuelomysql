@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block title %}Agencia de Vuelos{% endblock %}
+
+{% block content%}
+    <center>
+        <header class="main-header" style="background: url(static/imagen/avion2.jpg); background-size: cover;">
+            <div class="background-overlay text-white py-5">
+            <h1 style="font-weight: bold; margin-top: 4%; margin-bottom: 4%;">Vuelos Disponibles</h1>
+            </div>
+            <section class="bg-dark text-white py-2"></section>
+        </header>
+        <section class="py-5">
+            <div class="container">
+                <div class="row" >
+                    <div class="col-md-12">
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <h3 style="font-weight: bold; text-align: left;">Puerto Montt</h3>
+                                <div align="left" class="row">
+                                    <img src="static/imagen/puertomontt.jpg" alt="" width="400" class="rounded" style="border: 2px solid black; margin-left: 1%;">
+                                    <div style="margin-left: 4%;">
+                                        <h4 style="font-weight: bold;">Viaje desde Temuco a Puerto Montt</h4>
+                                        {%for x in temuco%}
+                                            <h5>Codigo Vuelo: {{x[0]}}</h5>
+                                            <h5>Asientos Disponibles: {{x[1]}}</h5>
+                                            <h5>Asientos Totales: {{x[2]}}</h5>
+                                        {%endfor%}
+                                        {% if current_user.is_authenticated %}
+                                                <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar Pasaje</a>
+                                            {% else %}
+                                                <a href="{{url_for('autenticacion.iniciar_sesion')}}" class="btn btn-dark" style="margin-bottom: 2%;">Comprar Pasaje</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <h3 style="font-weight: bold; text-align: right;">Coquimbo</h3>
+                                <div align="right" class="row">
+                                    <div style="margin-left: 10%;">
+                                        <h4 style="font-weight: bold;">Viaje desde Temuco a Puerto Montt</h4>
+                                        {%for x in talca%}
+                                            <h5>Codigo Vuelo: {{x[0]}}</h5>
+                                            <h5>Asientos Disponibles: {{x[1]}}</h5>
+                                            <h5>Asientos Totales: {{x[2]}}</h5>
+                                        {%endfor%}
+                                        {% if current_user.is_authenticated %}
+                                                <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar Pasaje</a>
+                                            {% else %}
+                                                <a href="{{url_for('autenticacion.iniciar_sesion')}}" class="btn btn-dark" style="margin-bottom: 2%;">Comprar Pasaje</a>
+                                        {% endif %}
+                                    </div>
+                                    <img src="static/imagen/coquimbo.jpg" alt="" width="400" class="rounded" style="border: 2px solid black; margin-left: 15%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-5">
+            <div class="container">
+                <div class="row" >
+                    <div class="col-md-12">
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <h3 style="font-weight: bold; text-align: left;">Santiago</h3>
+                                <div align="left" class="row">
+                                    <img src="static/imagen/santiago1.jpg" alt="" width="400" class="rounded" style="border: 2px solid black; margin-left: 1%;">
+                                    <div style="margin-left: 4%;">
+                                        <h4 style="font-weight: bold;">Viaje desde Arica a Santiago</h4>
+                                        {%for x in arica%}
+                                            <h5>Codigo Vuelo: {{x[0]}}</h5>
+                                            <h5>Asientos Disponibles: {{x[1]}}</h5>
+                                            <h5>Asientos Totales: {{x[2]}}</h5>
+                                        {%endfor%}
+                                        {% if current_user.is_authenticated %}
+                                                <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar Pasaje</a>
+                                            {% else %}
+                                                <a href="{{url_for('autenticacion.iniciar_sesion')}}" class="btn btn-dark" style="margin-bottom: 2%;">Comprar Pasaje</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <h3 style="font-weight: bold; text-align: right;">Valdivia</h3>
+                                <div align="right" class="row">
+                                    <div style="margin-left: 15%;">
+                                        <h4 style="font-weight: bold;">Viaje desde Rancagua a Valdivia</h4>
+                                        {%for x in rancagua%}
+                                            <h5>Codigo Vuelo: {{x[0]}}</h5>
+                                            <h5>Asientos Disponibles: {{x[1]}}</h5>
+                                            <h5>Asientos Totales: {{x[2]}}</h5>
+                                        {%endfor%}
+                                        {% if current_user.is_authenticated %}
+                                                <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar Pasaje</a>
+                                            {% else %}
+                                                <a href="{{url_for('autenticacion.iniciar_sesion')}}" class="btn btn-dark" style="margin-bottom: 2%;">Comprar Pasaje</a>
+                                        {% endif %}
+                                    </div>
+                                    <img src="static/imagen/valdivia.jpg" alt="" width="400" class="rounded" style="border: 2px solid black; margin-left: 15%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-5">
+            <div class="container">
+                <div class="row" >
+                    <div class="col-md-12">
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <h3 style="font-weight: bold; text-align: left;">Arica</h3>
+                                <div align="left" class="row">
+                                    <img src="static/imagen/arica.jpg" alt="" width="400" class="rounded" style="border: 2px solid black; margin-left: 1%;">
+                                    <div style="margin-left: 4%;">
+                                        <h4 style="font-weight: bold;">Viaje desde Isla de Pascua a Arica</h4>
+                                        {%for x in arica%}
+                                            <h5>Codigo Vuelo: {{x[0]}}</h5>
+                                            <h5>Asientos Disponibles: {{x[1]}}</h5>
+                                            <h5>Asientos Totales: {{x[2]}}</h5>
+                                        {%endfor%}
+                                        {% if current_user.is_authenticated %}
+                                                <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar Pasaje</a>
+                                            {% else %}
+                                                <a href="{{url_for('autenticacion.iniciar_sesion')}}" class="btn btn-dark" style="margin-bottom: 2%;">Comprar Pasaje</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bg-dark text-white py-2 rounded" style="margin-top: 1%; margin-left: 14%; margin-right: 14%;"><h1 style="font-weight: bold;">Más vuelos disponibles</h1></section>
+        <div style="margin-left: 10%; margin-right: 10%; background-color: rgb(141, 141, 141); margin-top: 5%;">
+            <table class="table text">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Ciudad Origen</th>
+                        <th scope="col">Ciudad Destino</th>
+                        <th scope="col">Fecha Vuelo</th>
+                        <th scope="col">Valor</th>
+        
+                    </tr>
+                </thead>
+                {%for or in filas%}
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{or[0]}}</th>
+                        <td>{{or[1]}}</td>
+                        <td>{{or[2]}}</td>
+                        <td>{{or[3]}}</td>
+                    </tr>
+                    </tbody>
+                {%endfor%}
+            </table>
+        </div>
+        {% if current_user.is_authenticated %}
+                <a href="{{url_for('privado.compra_pasaje')}}"class="btn btn-dark">Comprar Pasaje</a>
+            {% else %}
+                <a href="{{url_for('autenticacion.iniciar_sesion')}}" class="btn btn-dark" style="margin-bottom: 2%;">Comprar Pasaje</a>
+        {% endif %}
+
+    </center>
+{%endblock%}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle del Viaje{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <img src="{{ url_for('static', filename='imagen/' + viaje.imagen.split('/')[-1]) }}" 
+             class="card-img-top img-fluid" alt="Imagen del destino" 
+             style="width: 300px; height: 200px; object-fit: cover; border: 2px solid #fff;">
+        
+        <div class="card-body">
+            <h2 class="card-title">{{ viaje.origen }} → {{ viaje.destino }}</h2>
+            <p class="card-text"><strong>Fecha:</strong> {{ viaje.fecha }}</p>
+            <p class="card-text"><strong>Precio:</strong> ${{ viaje.valor }}</p>
+            <a href="/" class="btn btn-primary">Volver</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

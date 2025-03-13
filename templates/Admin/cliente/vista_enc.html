@@ -1,0 +1,29 @@
+{% extends "admin.html" %}
+
+{% block title %}Encuestas{% endblock %}
+
+{% block content%}
+<h3 style="text-align: center; margin-top: 5%;">Encuestas Registradas</h3>
+<table class="table bg-dark text-white">
+    <thead>
+        <tr>
+            <th scope="col">Rut</th>
+            <th scope="col">ID Pasaje</th>
+            <th scope="col">Atencion</th>
+            <th scope="col">Calidad</th>
+            <th scope="col">Rapidez</th>
+        </tr>
+    </thead>
+    {%for or in filas%}
+        <tbody>
+        <tr>
+            <th scope="row">{{or[0]}}</th>
+            <td>{{or[1]}}</td>
+            <td>{{or[2]}}</td>
+            <td>{{or[3]}}</td>
+            <td>{{or[4]}}</td>
+        </tr>
+        </tbody>
+    {%endfor%}
+</table>
+{% endblock%}

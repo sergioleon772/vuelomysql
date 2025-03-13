@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Pago Pendiente{% endblock %}
+
+{% block content %}
+    <center>
+        <h1 style="margin-top: 10%;">Pago en Proceso ⏳</h1>
+        <h3>Tu pago está pendiente de confirmación.</h3>
+        <a href="{{ url_for('ver_carrito') }}" class="btn btn-secondary">Volver al Carrito</a>
+    </center>
+{% endblock %}

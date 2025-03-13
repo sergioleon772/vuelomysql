@@ -1,0 +1,31 @@
+{% extends "admin.html" %}
+
+{% block title %}Actualizar Origen{% endblock %}
+
+{% block content%}
+    <center>
+        <h1>Actualizar datos de origen</h1>
+        {%if mensaje %}<h3>{{mensaje}}</h3>{%endif%}
+        {%include "errores.html"%}
+        <form action="{{url_for('privado.actualizar_origen')}}" method="POST">
+            <div class="form-group col-md-6">
+                <label for="cod_ori_modi">CODIGO ORIGEN MODIFICAR</label>
+                <input type="text" class="form-control" name="cod_ori_modi" placeholder="Ingrese codigo origen" value="{{origen.cod_origen}}" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="nombreAero">NOMBRE AEROPUERTO MODIFICAR</label>
+                <input type="text" class="form-control" name="nombreAero" placeholder="Ingrese Nombre Aeropuerto" value="{{origen.aeropuerto}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="ciudad_n">NOMBRE CIUDAD MODIFICAR</label>
+                <input type="text" class="form-control" name="ciudad_n" placeholder="Ingrese Ciudad Nueva" value="{{origen.ciudad}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="pais_nuevo">NOMBRE PAIS MODIFICAR</label>
+                <input type="text" class="form-control" name="pais_nuevo" placeholder="Ingrese Pais Nuevo" value="{{origen.pais}}"">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
+    </center>
+{%endblock%}

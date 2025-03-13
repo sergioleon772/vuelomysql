@@ -1,0 +1,22 @@
+{% extends "admin.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content%}
+    <center>
+        <h1 style="margin-top: 100px;">Inicio Sesión Admin</h1>
+            <form action="{{url_for('autenticacion.iniciar_sesionAd')}}"method="post">
+                {%include "errores.html"%}
+                <div class="form-group col-md-6">
+                <label for="exampleInputEmail1">Rut</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="rutU" placeholder="Ingrese rut">
+                </div>
+                <div class="form-group col-md-6">
+                <label for="exampleInputPassword1">Contraseña</label>
+                <input type="password" class="form-control" name="tel" id="exampleInputPassword1" placeholder="Ingrese Contraseña">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">ingresar</button>
+            </form>
+    </center>
+{% endblock %}

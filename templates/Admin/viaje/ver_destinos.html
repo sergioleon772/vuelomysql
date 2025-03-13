@@ -1,0 +1,58 @@
+{% extends "admin.html" %}
+
+{% block title %}Menu Destino{% endblock %}
+
+{% block content%}
+    <h1 style="text-align: center;">Menu Destino</h1>
+        <div style="text-align: center;">
+            <a href="{{url_for('privado.ingresar_destino')}}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true" >Ingresar Destino</a>
+             </div>
+    <h3 style="text-align: center; margin-top: 5%;">Destinos Registrados</h3>
+    <table class="table bg-dark text-white">
+        <thead>
+            <tr>
+                <th scope="col">Codigo</th>
+                <th scope="col">Aeropuerto</th>
+                <th scope="col">Ciudad</th>
+                <th scope="col">Pais</th>
+                <th scope="col">Acciones</th>
+
+            </tr>
+        </thead>
+        {%for or in filas%}
+            <tbody>
+            <tr>
+                <th scope="row">{{or[0]}}</th>
+                <td>{{or[1]}}</td>
+                <td>{{or[2]}}</td>
+                <td>{{or[3]}}</td>
+                <td>
+                    <a href="{{url_for('privado.actualizar_destino', cod_destino=or[0])}}" class="btn btn-sm btn-warning">Actualizar</a>
+                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{or[0]}}">Eliminar</button>
+                    <div class="modal fade" id="confirmDeleteModal{{or[0]}}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Estás seguro de que quieres eliminar este destino?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <form method="POST" action="{{ url_for('privado.eliminar_destino') }}" style="display: inline;">
+                                        <input type="hidden" name="cod_destino" value="{{ or[0] }}">
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </tr>
+            </tbody>
+        {%endfor%}
+    </table>
+{%endblock%}

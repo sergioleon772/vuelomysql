@@ -1,0 +1,29 @@
+{% extends "admin.html" %}
+
+{% block title %}Ingresar Origen{% endblock %}
+
+{% block content%}
+    <center>
+        <div><h1 style="margin-top: 100px;">Ingresar Origen</h1></div>
+        {%if mensaje %}<h4>{{mensaje}}</h4>{%endif%}
+        {%include "errores.html"%}
+        <form action="{{url_for('privado.ingresar_origen')}}" method="POST">
+            <div class="form-group col-md-6">
+                <label for="aero_o">INGRESE AEROPUERTO</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="aero_o" placeholder="Ingrese Aeropuerto">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="ciudad_o">INGRESE CIUDAD</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="ciudad_o" placeholder="Ingrese Ciudad">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="pais_o">INGRESE PAIS</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="pais_o" placeholder="Ingrese Pais">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">ingresar</button>
+            <br>
+        </form>
+        
+    </center>
+{%endblock%}

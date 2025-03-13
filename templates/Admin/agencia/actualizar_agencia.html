@@ -1,0 +1,54 @@
+{% extends "admin.html" %}
+
+{% block title %}Actualizar Agencia{% endblock %}
+
+{% block content %}
+    <center>
+        <h1>Actualizar datos de la agencia</h1>
+        {% if mensaje %}
+            <h3 id="mensaje">{{ mensaje}}</h3>
+        {% endif %}
+        {% include "errores.html" %}
+
+
+        <!-- Formulario de actualización -->
+        <form id="actualizar-form" action="{{ url_for('privado.actualizar_agencia') }}" method="POST" >
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="cod_agenciaAg">ID AGENCIA</label>
+                    <input type="text" class="form-control" name="cod_agenciaAg" id="cod_agenciaAg" value="{{ request.args.get('cod_ag_act', '') }}" readonly>
+                </div>
+                
+                <div class="form-group col-md-6">
+                    <label for="nombreAg">NOMBRE AGENCIA</label>
+                    <input type="text" class="form-control" name="nombreAg" id="nombreAg" value="{{agencia.nombre}}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="regionAg">REGION AGENCIA</label>
+                    <input type="text" class="form-control" name="regionAg" id="regionAg" value="{{agencia.region}}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="comunaAg">COMUNA AGENCIA</label>
+                    <input type="text" class="form-control" name="comunaAg" id="comunaAg" value="{{agencia.comuna}}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="calleAg">CALLE AGENCIA</label>
+                    <input type="text" class="form-control" name="calleAg" id="calleAg" value="{{agencia.calle}}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="numeroAg">NUMERO AGENCIA</label>
+                    <input type="text" class="form-control" name="numeroAg" id="numeroAg" value="{{agencia.numero}}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="telefonoAg">TELEFONO AGENCIA</label>
+                    <input type="text" class="form-control" name="telefonoAg" id="telefonoAg" value="{{agencia.telefono}}">
+                </div>
+            </div>
+
+            <br>
+            <button type="submit" class="btn btn-primary" id="actualizar-btn">Actualizar</button>
+        </form>
+    </center>
+
+    
+{% endblock %}

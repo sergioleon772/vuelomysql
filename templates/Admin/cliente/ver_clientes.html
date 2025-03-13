@@ -1,0 +1,70 @@
+{% extends "admin.html" %}
+
+{% block title %}Menu Cliente{% endblock %}
+
+{% block content%}
+    <h1 style="text-align: center;">Menu Cliente</h1>
+    <div style="text-align: center;">
+        <a href="{{url_for('privado.registrar')}}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true" >Ingresar Cliente</a>
+      </div>
+    <h3 style="text-align: center; margin-top: 5%;">Clientes Registrados</h3>
+    <table class="table bg-dark text-white">
+        <thead>
+            <tr>
+                <th scope="col">Rut</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Fecha Nacimiento</th>
+                <th scope="col">Region</th>
+                <th scope="col">Comuna</th>
+                <th scope="col">Calle</th>
+                <th scope="col">Numero</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        {%for or in filas%}
+            <tbody>
+            <tr>
+                <th scope="row">{{or[0]}}</th>
+                <td>{{or[1]}}</td>
+                <td>{{or[2]}}</td>
+                <td>{{or[3]}}</td>
+                <td>{{or[4]}}</td>
+                <td>{{or[5]}}</td>
+                <td>{{or[6]}}</td>
+                <td>{{or[7]}}</td>
+                <td>{{or[8]}}</td>
+                <td>{{or[9]}}</td>
+                <td>
+                    <a href="{{ url_for('privado.actualizar_cliente', cod_iti_act=or[0]) }}" class="btn btn-sm btn-warning">Actualizar</a>
+                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ or[0] }}">Eliminar</button>
+
+                    <div class="modal fade" id="confirmDeleteModal{{ or[0] }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Estás seguro de que quieres eliminar este cliente?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                        <form method="POST" action="{{ url_for('privado.eliminar_cliente') }}" style="display: inline;">
+                                            <input type="hidden" name="cod_iti_act" value="{{ or[0] }}">
+                                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </tr>
+            </tbody>
+        {%endfor%}
+    </table>
+{%endblock%}

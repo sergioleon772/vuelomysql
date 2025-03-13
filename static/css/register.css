@@ -1,0 +1,9 @@
+.iti {
+    width: 100%; /* Ajusta el ancho al contenedor */
+}
+
+.iti--separate-dial-code .iti__selected-flag {
+    background-color: #f8f9fa; /* Coincide con Bootstrap */
+    border-right: 1px solid #ced4da;
+    padding: 10px;
+}

@@ -1,0 +1,28 @@
+{% extends "admin.html" %}
+
+{% block title %}Menu Cliente{% endblock %}
+
+{% block content%}
+<center>
+    <div style="margin-top: 100px;"><h1>Ingresar Destino</h1></div>
+    {%if mensaje %}<h4>{{mensaje}}</h4>{%endif%}
+    {%include "errores.html"%}
+    <form action="{{url_for('privado.ingresar_destino')}}" method="POST">
+        <div class="form-group col-md-6">
+            <label for="aero_d">INGRESE AEROPUERTO DESTINO</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="aero_d" placeholder="Ingrese Aeropuerto">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="ciudad_d">INGRESE CIUDAD DESTINO</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="ciudad_d" placeholder="Ingrese Ciudad">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="pais_d">INGRESE PAIS DESTINO</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="pais_d" placeholder="Ingrese Pais">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">ingresar</button>
+        
+    </form>
+</center>
+{% endblock %}

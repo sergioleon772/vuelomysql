@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow p-4" style="width: 22rem;">
+            <h3 class="text-center">Iniciar Sesión</h3>
+            {% if errores %}
+            <div class="alert alert-danger">
+            <ul>
+                {% for error in errores %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+            {% endif %}
+
+            <form action="/login" method="POST">
+                <div class="mb-3">
+                    <label for="rut" class="form-label">Rut</label>
+                    <input type="text" class="form-control" id="rut" name="rut" required>
+                </div>
+                <input type="hidden" id="rut_sin_formato" name="rut_sin_formato">
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Contraseña:</label>
+                    <input type="password" class="form-control" name="telefono" required>
+                </div>
+            
+                <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+            </form>
+            
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
+</body>
+
+<!--konirsmate-->
+</html>
+{% endblock %}

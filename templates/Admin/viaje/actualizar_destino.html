@@ -1,0 +1,31 @@
+{% extends "admin.html" %}
+
+{% block title %}Actualizar Destino{% endblock %}
+
+{% block content%}
+    <center>
+        <h1>Actualizar datos de destino</h1>
+        {%if mensaje %}<h3>{{mensaje}}</h3>{%endif%}
+        {%include "errores.html"%}
+        <form action="{{url_for('privado.actualizar_destino')}}" method="POST">
+            <div class="form-group col-md-6">
+                <label for="cod_des_modi">CODIGO DESTINO MODIFICAR</label>
+                <input type="text" class="form-control" name="cod_des_modi" placeholder="Ingrese codigo destino" value="{{destino.cod_destino}}" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="nombreAero">NOMBRE AEROPUERTO DESTINO MODIFICAR</label>
+                <input type="text" class="form-control" name="nombreAero" placeholder="Ingrese Nombre Aeropuerto" value="{{destino.aeropuerto}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="ciudad_n">NOMBRE CIUDAD DESTINO MODIFICAR</label>
+                <input type="text" class="form-control" name="ciudad_n" placeholder="Ingrese Ciudad Nueva" value="{{destino.ciudad}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="pais_nuevo">NOMBRE PAIS DESTINO MODIFICAR</label>
+                <input type="text" class="form-control" name="pais_nuevo" placeholder="Ingrese Pais Nuevo" value="{{destino.pais}}">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
+    </center>
+{%endblock%}

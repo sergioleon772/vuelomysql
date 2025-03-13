@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Pago Exitoso{% endblock %}
+
+{% block content %}
+    <center>
+        <h1 style="margin-top: 10%;">¡Pago Exitoso! 🎉</h1>
+        <h3>Tu compra ha sido procesada con éxito.</h3>
+        <a href="{{ url_for('ver_carrito') }}" class="btn btn-primary">Volver al inicio</a>
+    </center>
+{% endblock %}

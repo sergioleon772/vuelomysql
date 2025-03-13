@@ -1,0 +1,42 @@
+{% extends "admin.html" %}
+
+{% block title %}Ingresar Agencia{% endblock %}
+
+{% block content%}
+    <center>
+        <div><h1>Ingresar Agencia</h1></div>
+        {% if mensaje %}<h3>{{ mensaje }}</h3>{% endif %}
+        {%include "errores.html"%}
+        <form action="{{ url_for('privado.ingresar_agencia') }}" method="POST">
+            <div class="form-group">
+                <label for="rutA">RUT AGENCIA</label>
+                <input type="text" class="form-control" name="rutA" placeholder="Ingrese Rut Agencia" required>
+            </div>
+            <div class="form-group">
+                <label for="nombreA">NOMBRE AGENCIA</label>
+                <input type="text" class="form-control" name="nombreA" placeholder="Ingrese Nombre Agencia" required>
+            </div>
+            <div class="form-group">
+                <label for="regionA">REGION</label>
+                <input type="text" class="form-control" name="regionA" placeholder="Ingrese Region" required>
+            </div>
+            <div class="form-group">
+                <label for="comunaA">COMUNA</label>
+                <input type="text" class="form-control" name="comunaA" placeholder="Ingrese Comuna" required>
+            </div>
+            <div class="form-group">
+                <label for="calleA">CALLE</label>
+                <input type="text" class="form-control" name="calleA" placeholder="Ingrese Calle" required>
+            </div>
+            <div class="form-group">
+                <label for="numeroA">NUMERO</label>
+                <input type="text" class="form-control" name="numeroA" placeholder="Ingrese Numero" required>
+            </div>
+            <div class="form-group">
+                <label for="telefonoA">TELEFONO</label>
+                <input type="text" class="form-control" name="telefonoA" placeholder="Ingrese Telefono" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
+    </center>
+{%endblock%}
