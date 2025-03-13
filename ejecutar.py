@@ -408,11 +408,8 @@ def logout():
 
 
 
-
 if __name__ == "__main__":
     
-    #port = int(os.environ.get("PORT", 10000))  # Render asigna dinámicamente un puerto
-    #app.run(host="0.0.0.0", port=port, debug=True)
-    #app.run(host="0.0.0.0", port=80, debug=True)
-    app.run(debug=True, port=5001)
+
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
 
